@@ -1281,6 +1281,39 @@ body {
     color: var(--neutral-500);
 }
 
+/* ─── Mobile adjustments: hide topbar, stack action buttons ─── */
+@media (max-width: 700px) {
+    /* show mobile header */
+    .mobile-header { display: flex; }
+
+    /* hide desktop topbar (search bar) on small screens */
+    .topbar { display: none; }
+
+    /* ensure main content isn't covered by the mobile header */
+    .main-content { margin-left: 0; padding-top: 56px; }
+
+    /* Stack form action buttons and make them full width */
+    .form-actions {
+        flex-direction: column;
+        gap: 0.6rem;
+        align-items: stretch;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Slightly reduce primary button padding for small screens */
+    .btn-primary { padding: 0.55rem 0.9rem; }
+
+    /* Make search input smaller if any remains visible */
+    .search-box input { width: 90px; }
+
+    /* Ensure tables scroll horizontally on small screens */
+    .items-table-wrapper, .recent-table-wrapper { overflow-x: auto; }
+}
+
 /* ═══════════════════════════════════════════════════════════
    TOAST NOTIFICATIONS
    ═══════════════════════════════════════════════════════════ */
