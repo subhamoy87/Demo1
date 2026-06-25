@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivansh International — Invoice Management System</title>
+    <meta name="description" content="Professional invoice generation system for Shivansh International. Generate Proforma Invoices, Purchase Orders, Commercial Invoices, Packing Lists, and Local Invoices.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Shivansh</h1>
+                    <span>International</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="#" class="nav-link active" data-page="dashboard" id="nav-dashboard">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-page="proforma" id="nav-proforma">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Proforma Invoice</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-page="purchase" id="nav-purchase">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Purchase Order</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-page="commercial" id="nav-commercial">
+                        <i class="fas fa-file-contract"></i>
+                        <span>Commercial Invoice</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-page="packing" id="nav-packing">
+                        <i class="fas fa-box-open"></i>
+                        <span>Packing List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-page="local" id="nav-local">
+                        <i class="fas fa-receipt"></i>
+                        <span>Local Invoice</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name">Admin</span>
+                    <span class="user-role">Manager</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header" id="mobileHeader">
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-logo">Shivansh International</div>
+    </header>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <h2 class="page-title" id="pageTitle">Dashboard</h2>
+                <p class="page-subtitle" id="pageSubtitle">Welcome back! Here's your business overview.</p>
+            </div>
+            <div class="topbar-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search invoices..." id="searchInput">
+                </div>
+                <button class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="current-date" id="currentDate"></div>
+            </div>
+        </div>
+
+        <!-- ==================== DASHBOARD PAGE ==================== -->
+        <section class="page active" id="page-dashboard">
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card" data-type="proforma">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Proforma Invoices</span>
+                        <span class="stat-value" id="stat-proforma">0</span>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i> 12%
+                    </div>
+                </div>
+                <div class="stat-card" data-type="purchase">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Purchase Orders</span>
+                        <span class="stat-value" id="stat-purchase">0</span>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i> 8%
+                    </div>
+                </div>
+                <div class="stat-card" data-type="commercial">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Commercial Invoices</span>
+                        <span class="stat-value" id="stat-commercial">0</span>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i> 15%
+                    </div>
+                </div>
+                <div class="stat-card" data-type="packing">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Packing Lists</span>
+                        <span class="stat-value" id="stat-packing">0</span>
+                    </div>
+                    <div class="stat-trend down">
+                        <i class="fas fa-arrow-down"></i> 3%
+                    </div>
+                </div>
+                <div class="stat-card" data-type="local">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Local Invoices</span>
+                        <span class="stat-value" id="stat-local">0</span>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i> 22%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="section-header">
+                <h3>Quick Actions</h3>
+                <p>Create a new document in one click</p>
+            </div>
+            <div class="quick-actions-grid">
+                <div class="action-card" data-target="proforma">
+                    <div class="action-card-bg" style="background: linear-gradient(135deg, #e8eaf6, #c5cae9);"></div>
+                    <div class="action-card-content">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <h4>Proforma Invoice</h4>
+                        <p>Generate a pre-shipment quotation invoice for your international buyers</p>
+                        <button class="action-btn" onclick="navigateTo('proforma')">
+                            <span>Create New</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="action-card" data-target="purchase">
+                    <div class="action-card-bg" style="background: linear-gradient(135deg, #fce4ec, #f8bbd0);"></div>
+                    <div class="action-card-content">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h4>Purchase Order</h4>
+                        <p>Create official purchase orders for your suppliers and vendors</p>
+                        <button class="action-btn" onclick="navigateTo('purchase')">
+                            <span>Create New</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="action-card" data-target="commercial">
+                    <div class="action-card-bg" style="background: linear-gradient(135deg, #e1f5fe, #b3e5fc);"></div>
+                    <div class="action-card-content">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <h4>Commercial Invoice</h4>
+                        <p>Generate customs-ready commercial invoices for international shipments</p>
+                        <button class="action-btn" onclick="navigateTo('commercial')">
+                            <span>Create New</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="action-card" data-target="packing">
+                    <div class="action-card-bg" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);"></div>
+                    <div class="action-card-content">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h4>Packing List</h4>
+                        <p>Prepare detailed packing lists with weights and measurements</p>
+                        <button class="action-btn" onclick="navigateTo('packing')">
+                            <span>Create New</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="action-card" data-target="local">
+                    <div class="action-card-bg" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2);"></div>
+                    <div class="action-card-content">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <h4>Local Invoice</h4>
+                        <p>Generate GST-compliant invoices for domestic transactions</p>
+                        <button class="action-btn" onclick="navigateTo('local')">
+                            <span>Create New</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="section-header" style="margin-top: 2rem;">
+                <h3>Recent Activity</h3>
+                <p>Your latest generated documents</p>
+            </div>
+            <div class="recent-table-wrapper">
+                <table class="recent-table" id="recentTable">
+                    <thead>
+                        <tr>
+                            <th>Document No.</th>
+                            <th>Type</th>
+                            <th>Client / Vendor</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTableBody">
+                        <!-- populated by JS -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="emptyState">
+                    <i class="fas fa-folder-open"></i>
+                    <h4>No documents yet</h4>
+                    <p>Create your first invoice to see it appear here</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PROFORMA INVOICE PAGE ==================== -->
+        <section class="page" id="page-proforma">
+            <div class="invoice-form-container">
+                <div class="form-header-banner proforma-banner">
+                    <div class="form-header-icon"><i class="fas fa-file-invoice"></i></div>
+                    <div>
+                        <h3>Proforma Invoice</h3>
+                        <p>Pre-shipment quotation for international trade</p>
+                    </div>
+                </div>
+                <form id="proformaForm" class="invoice-form" onsubmit="return false;">
+                    <!-- Seller & Buyer Info -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-building"></i> Seller Information</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pi-seller-name">Company Name</label>
+                                <input type="text" id="pi-seller-name" value="Shivansh International" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-seller-address">Address</label>
+                                <input type="text" id="pi-seller-address" value="Metropolitan CZ-20B, Canal South Road, Kol-700105">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-seller-email">Email</label>
+                                <input type="email" id="pi-seller-email" value="admin.shivansh@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-seller-contact">Contact Person</label>
+                                <input type="text" id="pi-seller-contact" value="Priya Paul">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-seller-mobile">Mobile No</label>
+                                <input type="text" id="pi-seller-mobile" value="+91 9874525414">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-user-tie"></i> Buyer Information</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pi-buyer-name">Buyer Name / Company</label>
+                                <input type="text" id="pi-buyer-name" value="Sc Adigherin Srl Company" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-buyer-address">Address</label>
+                                <input type="text" id="pi-buyer-address" value="RO 11360510 nr. VAT J35/17/1999 Timisoara city Romania">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-buyer-email">Email</label>
+                                <input type="email" id="pi-buyer-email" value="islandofleather@yahoo.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-buyer-contact">Contact Person</label>
+                                <input type="text" id="pi-buyer-contact" value="Ilasi Florin">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-buyer-mobile">Mobile No</label>
+                                <input type="text" id="pi-buyer-mobile" value="+40720047016">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-info-circle"></i> Invoice Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pi-invoice-no">Invoice No.</label>
+                                <input type="text" id="pi-invoice-no" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-date">Date</label>
+                                <input type="date" id="pi-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-port-loading">Port of Loading</label>
+                                <input type="text" id="pi-port-loading" value="Kolkata (EX Calcutta) (INCCU), INDIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-port-discharge">Port of Discharge</label>
+                                <input type="text" id="pi-port-discharge" value="CONSTANTA, ROMANIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-dispatch-method">Method of Dispatch</label>
+                                <input type="text" id="pi-dispatch-method" value="SEA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-incoterms">Incoterms</label>
+                                <input type="text" id="pi-incoterms" value="FOB">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-delivery-date">Delivery Date</label>
+                                <input type="date" id="pi-delivery-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-currency">Currency</label>
+                                <select id="pi-currency">
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="INR">INR (₹)</option>
+                                    <option value="AED">AED (د.إ)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items Table -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-list"></i> Item Details</h4>
+                        <div class="items-table-wrapper">
+                            <table class="items-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15%">Product Code</th>
+                                        <th style="width:45%">Description</th>
+                                        <th style="width:15%">Qty</th>
+                                        <th style="width:15%">Unit Price</th>
+                                        <th style="width:10%">Amount</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pi-items-body">
+                                    <tr>
+                                        <td><input type="text" placeholder="Product Code" class="item-code" value="001"></td>
+                                        <td><input type="text" placeholder="Item description" class="item-desc" value="Gents Black Cow Nappa Leather Wallet"></td>
+                                        <td><input type="number" value="2300" min="0" class="item-qty" onchange="calculateRow(this, 'pi')"></td>
+                                        <td><input type="number" value="3.50" min="0" step="0.01" class="item-price" onchange="calculateRow(this, 'pi')"></td>
+                                        <td><input type="text" value="8050.00" class="item-amount" readonly></td>
+                                        <td><button type="button" class="btn-remove" onclick="removeRow(this, 'pi')"><i class="fas fa-times"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn-add-row" onclick="addRow('pi')">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <div class="totals-section">
+                            <div class="totals-row">
+                                <span>Subtotal:</span>
+                                <span id="pi-subtotal">0.00</span>
+                            </div>
+                            <div class="totals-row">
+                                <span>Shipping & Handling:</span>
+                                <input type="number" id="pi-shipping" value="0" min="0" step="0.01" onchange="calculateTotals('pi')">
+                            </div>
+                            <div class="totals-row">
+                                <span>Other Cost:</span>
+                                <input type="number" id="pi-other-cost" value="130.00" min="0" step="0.01" onchange="calculateTotals('pi')">
+                            </div>
+                            <div class="totals-row grand-total">
+                                <span>Grand Total:</span>
+                                <span id="pi-grand-total">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Terms & Bank details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-university"></i> Bank Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pi-bank-name">Account Name</label>
+                                <input type="text" id="pi-bank-name" value="Shivansh International">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-bank-acc">Account No</label>
+                                <input type="text" id="pi-bank-acc" value="50200118150539">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-bank-swift">Swift Code</label>
+                                <input type="text" id="pi-bank-swift" value="HDFCINBBCAL">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-bank-branch">Branch Name</label>
+                                <input type="text" id="pi-bank-branch" value="Metropolitan">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pi-bank-address">Bank Address</label>
+                                <input type="text" id="pi-bank-address" value="HDFC BANK Ltd, Premises No A, P 12, B Canal South Ground First Floor, Metropolitan Kolkata - 700105">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signatory Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-signature"></i> Signatory Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pi-sig-company">Company Name</label>
+                                <input type="text" id="pi-sig-company" value="Shivansh International">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-sig-name">Signatory Name</label>
+                                <input type="text" id="pi-sig-name" value="Priya Paul">
+                            </div>
+                            <div class="form-group">
+                                <label for="pi-sig-designation">Designation</label>
+                                <input type="text" id="pi-sig-designation" value="Proprietor">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Remarks & Payment Terms -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-sticky-note"></i> Payment Terms & Additional Info</h4>
+                        <div class="form-grid">
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pi-payment-terms">Payment Terms</label>
+                                <input type="text" id="pi-payment-terms" value="40% Advance and 60% Before Delivery">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pi-remarks">Additional Info</label>
+                                <textarea id="pi-remarks" rows="2" placeholder="Any additional notes or instructions..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm('proforma')"><i class="fas fa-redo"></i> Reset</button>
+                        <button type="button" class="btn btn-primary" onclick="generateInvoice('proforma')"><i class="fas fa-file-pdf"></i> Generate & Preview</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== PURCHASE ORDER PAGE ==================== -->
+        <section class="page" id="page-purchase">
+            <div class="invoice-form-container">
+                <div class="form-header-banner purchase-banner">
+                    <div class="form-header-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div>
+                        <h3>Purchase Order</h3>
+                        <p>Official order to suppliers and vendors</p>
+                    </div>
+                </div>
+                <form id="purchaseForm" class="invoice-form" onsubmit="return false;">
+                    <div class="form-section">
+                        <h4><i class="fas fa-building"></i> Vendor Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="po-vendor-name">Company Name</label>
+                                <input type="text" id="po-vendor-name" value="Shivansh International" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="po-vendor-address">Address</label>
+                                <input type="text" id="po-vendor-address" value="Metropolitan CZ-20B, Canal South Road, Kol-700105">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-vendor-email">Email</label>
+                                <input type="email" id="po-vendor-email" value="admin.shivansh@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-vendor-contact">Contact Person</label>
+                                <input type="text" id="po-vendor-contact" value="Priya Paul">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-vendor-mobile">Mobile No</label>
+                                <input type="text" id="po-vendor-mobile" value="+91 9874525414">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-user-tie"></i> Customer Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="po-customer-name">Company Name</label>
+                                <input type="text" id="po-customer-name" value="Sc Adigherin Srl Company" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="po-customer-address">Address</label>
+                                <input type="text" id="po-customer-address" value="RO 11360510 nr. VAT J35/17/1999 Timisoara city Romania">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-customer-email">Email</label>
+                                <input type="email" id="po-customer-email" value="islandofleather@yahoo.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-customer-contact">Contact Person</label>
+                                <input type="text" id="po-customer-contact" value="Ilasi Florin">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-customer-mobile">Mobile No</label>
+                                <input type="text" id="po-customer-mobile" value="+40720047016">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-truck"></i> Deliver To</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="po-deliver-name">Company Name</label>
+                                <input type="text" id="po-deliver-name" value="Sc Adigherin Srl Company">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-deliver-address">Address</label>
+                                <input type="text" id="po-deliver-address" value="Romania, Timiş, Giroc Strada Muncitorilor nr. 83C, Postal cod 307220">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-deliver-contact">Contact Person</label>
+                                <input type="text" id="po-deliver-contact" value="Ilasi Florin">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-deliver-mobile">Mobile No</label>
+                                <input type="text" id="po-deliver-mobile" value="+40720047016">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-info-circle"></i> Order Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="po-order-no">PO Number</label>
+                                <input type="text" id="po-order-no" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="po-date">Order Date</label>
+                                <input type="date" id="po-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-shipping-method">Shipping Method</label>
+                                <input type="text" id="po-shipping-method" value="SEA">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-shipping-term">Shipping Term</label>
+                                <input type="text" id="po-shipping-term" value="FOB">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-delivery-date">Delivery Date</label>
+                                <input type="date" id="po-delivery-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-currency">Currency</label>
+                                <select id="po-currency">
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="INR">INR (₹)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-list"></i> Order Items</h4>
+                        <div class="items-table-wrapper">
+                            <table class="items-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%">Sl. No</th>
+                                        <th style="width:50%">Description</th>
+                                        <th style="width:15%">Quantity</th>
+                                        <th style="width:15%">Unit Price</th>
+                                        <th style="width:10%">Amount</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="po-items-body">
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input type="text" placeholder="Item description" class="item-desc" value="Gents Black Cow Nappa Leather Wallet"></td>
+                                        <td><input type="number" value="2300" min="0" class="item-qty" onchange="calculateRow(this, 'po')"></td>
+                                        <td><input type="number" value="3.50" min="0" step="0.01" class="item-price" onchange="calculateRow(this, 'po')"></td>
+                                        <td><input type="text" value="8050.00" class="item-amount" readonly></td>
+                                        <td><button type="button" class="btn-remove" onclick="removeRow(this, 'po')"><i class="fas fa-times"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn-add-row" onclick="addRow('po')">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <div class="totals-section">
+                            <div class="totals-row">
+                                <span>Subtotal:</span>
+                                <span id="po-subtotal">0.00</span>
+                            </div>
+                            <div class="totals-row">
+                                <span>Shipping & Handling:</span>
+                                <input type="number" id="po-shipping" value="0" min="0" step="0.01" onchange="calculateTotals('po')">
+                            </div>
+                            <div class="totals-row">
+                                <span>Other Cost:</span>
+                                <input type="number" id="po-other-cost" value="130.00" min="0" step="0.01" onchange="calculateTotals('po')">
+                            </div>
+                            <div class="totals-row grand-total">
+                                <span>Total Amount:</span>
+                                <span id="po-grand-total">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signatory Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-signature"></i> Signatory Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="po-sig-company">Company Name</label>
+                                <input type="text" id="po-sig-company" value="Shivansh International">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-sig-name">Signatory Name</label>
+                                <input type="text" id="po-sig-name" value="Priya Paul">
+                            </div>
+                            <div class="form-group">
+                                <label for="po-sig-designation">Designation</label>
+                                <input type="text" id="po-sig-designation" value="Proprietor">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Terms & Remarks -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-sticky-note"></i> Payment Terms & Instructions</h4>
+                        <div class="form-grid">
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="po-payment-terms">Payment Terms</label>
+                                <input type="text" id="po-payment-terms" value="40% Advance and 60% Before Delivery">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="po-remarks">Remarks</label>
+                                <textarea id="po-remarks" rows="2" placeholder="Delivery instructions, comments..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm('purchase')"><i class="fas fa-redo"></i> Reset</button>
+                        <button type="button" class="btn btn-primary" onclick="generateInvoice('purchase')"><i class="fas fa-file-pdf"></i> Generate & Preview</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== COMMERCIAL INVOICE PAGE ==================== -->
+        <section class="page" id="page-commercial">
+            <div class="invoice-form-container">
+                <div class="form-header-banner commercial-banner">
+                    <div class="form-header-icon"><i class="fas fa-file-contract"></i></div>
+                    <div>
+                        <h3>Commercial Invoice</h3>
+                        <p>Customs documentation for international shipments</p>
+                    </div>
+                </div>
+                <form id="commercialForm" class="invoice-form" onsubmit="return false;">
+                    <!-- Exporter & Consignee -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-building"></i> Exporter Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ci-exporter-name">Exporter Name</label>
+                                <input type="text" id="ci-exporter-name" value="Shivansh International" readonly>
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="ci-exporter-address">Address</label>
+                                <input type="text" id="ci-exporter-address" value="CZ-20B, Metropolitan Co-operative Housing Society Ltd. KOLKATA 700105">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-exporter-email">Email</label>
+                                <input type="email" id="ci-exporter-email" value="admin.shivansh@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-exporter-mobile">Mobile</label>
+                                <input type="text" id="ci-exporter-mobile" value="(+91)9874525414">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-user-tie"></i> Consignee / Importer</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ci-consignee-name">Consignee Name</label>
+                                <input type="text" id="ci-consignee-name" value="Sc Adigherin Srl Company" required>
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="ci-consignee-address">Address</label>
+                                <input type="text" id="ci-consignee-address" value="RO 11360510 nr.VAT J35/17/1999 Timisoara city Romania">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-consignee-contact">Contact Person</label>
+                                <input type="text" id="ci-consignee-contact" value="Ilasi Florin">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-consignee-mobile">Mobile</label>
+                                <input type="text" id="ci-consignee-mobile" value="+40720047016">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-consignee-gst">GSTIN/VAT</label>
+                                <input type="text" id="ci-consignee-gst" value="RO 11360510 J35/17/1999">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-truck"></i> Deliver To</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ci-deliver-name">Company Name</label>
+                                <input type="text" id="ci-deliver-name" value="Sc Adigherin Srl Company">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="ci-deliver-address">Address</label>
+                                <input type="text" id="ci-deliver-address" value="Romania, Timis, Giroc strada Muncitorilor nr. 83C, Postal cod 307220">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-deliver-contact">Contact Person</label>
+                                <input type="text" id="ci-deliver-contact" value="Ilasi Florin">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-deliver-mobile">Mobile</label>
+                                <input type="text" id="ci-deliver-mobile" value="+40720047016">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoice & Shipment Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-ship"></i> Invoice & Shipment Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ci-invoice-no">Invoice No.</label>
+                                <input type="text" id="ci-invoice-no" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-date">Invoice Date</label>
+                                <input type="date" id="ci-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-iec">Exporter IEC Code</label>
+                                <input type="text" id="ci-iec" value="ELHPP5387P">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-ad-code">A.D CODE</label>
+                                <input type="text" id="ci-ad-code" value="051012A">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-lut-arn">LUT ARN NO</label>
+                                <input type="text" id="ci-lut-arn" value="AD190226012959Q">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-pre-carriage">Pre-Carriage by</label>
+                                <input type="text" id="ci-pre-carriage" value="BY ROAD">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-receipt-place">Place of receipt by pre-carrier</label>
+                                <input type="text" id="ci-receipt-place" value="KOLKATA">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-origin-country">Country of Origin of goods</label>
+                                <input type="text" id="ci-origin-country" value="INDIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-dest-country">Country of Final Destination</label>
+                                <input type="text" id="ci-dest-country" value="ROMANIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-vessel">Vessel / Flight No.</label>
+                                <input type="text" id="ci-vessel" value="BY Sea">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-port-loading">Port of Loading</label>
+                                <input type="text" id="ci-port-loading" value="KOLKATA(INCCU1)">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-delivery-payment-terms">Terms of Delivery and Payment</label>
+                                <input type="text" id="ci-delivery-payment-terms" value="FOB, 50% ADVANCE 50% BEFORE DISPATCH">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-port-discharge">Port of Discharge</label>
+                                <input type="text" id="ci-port-discharge" value="Constanta, ROMANIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-final-port">Final Port of Delivery</label>
+                                <input type="text" id="ci-final-port" value="CONSTANTA, ROMANIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-exporter-gstin">Exporter GSTIN</label>
+                                <input type="text" id="ci-exporter-gstin" value="19ELHPP5387P1ZW">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-currency">Currency</label>
+                                <select id="ci-currency">
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="INR">INR (₹)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-list"></i> Item Details</h4>
+                        <div class="items-table-wrapper">
+                            <table class="items-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15%">Marks & Nos</th>
+                                        <th style="width:40%">Description of Goods</th>
+                                        <th style="width:10%">Qty (Pcs)</th>
+                                        <th style="width:10%">Net Wt. (Kgs)</th>
+                                        <th style="width:10%">HSN Code</th>
+                                        <th style="width:10%">Rate</th>
+                                        <th style="width:10%">Amount</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ci-items-body">
+                                    <tr>
+                                        <td><input type="text" class="item-marks" value="SPD"></td>
+                                        <td><input type="text" class="item-desc" value="Gents Black Cow Nappa Leather Wallet"></td>
+                                        <td><input type="number" value="1300" min="0" class="item-qty" onchange="calculateRow(this, 'ci')"></td>
+                                        <td><input type="number" value="232" min="0" step="0.01" class="item-net-wt"></td>
+                                        <td><input type="text" class="item-hsn" value="42023120"></td>
+                                        <td><input type="number" value="3.50" min="0" step="0.01" class="item-price" onchange="calculateRow(this, 'ci')"></td>
+                                        <td><input type="text" value="4550.00" class="item-amount" readonly></td>
+                                        <td><button type="button" class="btn-remove" onclick="removeRow(this, 'ci')"><i class="fas fa-times"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn-add-row" onclick="addRow('ci')">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <div class="totals-section">
+                            <div class="totals-row">
+                                <span>Subtotal (Total):</span>
+                                <span id="ci-subtotal">0.00</span>
+                            </div>
+                            <div class="totals-row">
+                                <span>Freight:</span>
+                                <input type="number" id="ci-freight" value="0" min="0" step="0.01" onchange="calculateTotals('ci')">
+                            </div>
+                            <div class="totals-row">
+                                <span>Insurance:</span>
+                                <input type="number" id="ci-insurance" value="0" min="0" step="0.01" onchange="calculateTotals('ci')">
+                            </div>
+                            <div class="totals-row">
+                                <span>Discount:</span>
+                                <input type="number" id="ci-discount" value="0" min="0" step="0.01" onchange="calculateTotals('ci')">
+                            </div>
+                            <div class="totals-row grand-total">
+                                <span>G.Total:</span>
+                                <span id="ci-grand-total">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional details (Dimensions, Weight) -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-box"></i> Shipping Package Summary</h4>
+                        <div class="form-grid">
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="ci-dimensions">Dimension of CTNS (inch)</label>
+                                <input type="text" id="ci-dimensions" value="DIMENSION OF 1-40 CTNS IN INCH: (27.5 X 14.5 X 12.5)">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-total-qty-ctns">Total Quantity CTNS</label>
+                                <input type="text" id="ci-total-qty-ctns" value="TOTAL QUANTITY-40 CTNS">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-total-weight-label">Total Weight Label</label>
+                                <input type="text" id="ci-total-weight-label" value="TOTAL WEIGHT- 712 KGS">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Declaration details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-sticky-note"></i> Declaration Settings</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ci-dec-exporter">Declaration Exporter Name</label>
+                                <input type="text" id="ci-dec-exporter" value="Shivansh International">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-dec-rex">REX Number</label>
+                                <input type="text" id="ci-dec-rex" value="INREXELHPP5387PEC029">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-dec-date">Declaration Date</label>
+                                <input type="date" id="ci-dec-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-dec-origin">Origin Country</label>
+                                <input type="text" id="ci-dec-origin" value="INDIAN">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-dec-criterion">Origin Criterion</label>
+                                <input type="text" id="ci-dec-criterion" value="P (Products wholly obtain)">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-dec-hscode">HS Code</label>
+                                <input type="text" id="ci-dec-hscode" value="42023120">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="ci-remarks">Full Declaration Text Override (Optional)</label>
+                                <textarea id="ci-remarks" rows="2" placeholder="Leave empty to use the standard declaration text..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signatory Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-signature"></i> Signatory Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ci-sig-company">Company Name</label>
+                                <input type="text" id="ci-sig-company" value="Shivansh International">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-sig-name">Signatory Name</label>
+                                <input type="text" id="ci-sig-name" value="Priya Paul">
+                            </div>
+                            <div class="form-group">
+                                <label for="ci-sig-designation">Designation</label>
+                                <input type="text" id="ci-sig-designation" value="Proprietor">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm('commercial')"><i class="fas fa-redo"></i> Reset</button>
+                        <button type="button" class="btn btn-primary" onclick="generateInvoice('commercial')"><i class="fas fa-file-pdf"></i> Generate & Preview</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== PACKING LIST PAGE ==================== -->
+        <section class="page" id="page-packing">
+            <div class="invoice-form-container">
+                <div class="form-header-banner packing-banner">
+                    <div class="form-header-icon"><i class="fas fa-box-open"></i></div>
+                    <div>
+                        <h3>Packing List</h3>
+                        <p>Detailed shipment packaging information</p>
+                    </div>
+                </div>
+                <form id="packingForm" class="invoice-form" onsubmit="return false;">
+                    <!-- Exporter & Consignee -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-building"></i> Exporter Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pl-shipper-name">Exporter Name</label>
+                                <input type="text" id="pl-shipper-name" value="Spotdeal Enterprises" readonly>
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pl-shipper-address">Address</label>
+                                <input type="text" id="pl-shipper-address" value="CZ-20B, Metropolitan Co-operative Housing Society Ltd. KOLKATA 700105">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-shipper-email">Email</label>
+                                <input type="email" id="pl-shipper-email" value="spotdealenterprises@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-shipper-mobile">Mobile</label>
+                                <input type="text" id="pl-shipper-mobile" value="(+91)9874525414">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-user-tie"></i> Consignee Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pl-consignee-name">Consignee Name</label>
+                                <input type="text" id="pl-consignee-name" value="Sc Adigherin Srl Company" required>
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pl-consignee-address">Address</label>
+                                <input type="text" id="pl-consignee-address" value="RO 11360510 nr.VAT J35/17/1999 Timisoara city Romania">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-consignee-contact">Contact Person</label>
+                                <input type="text" id="pl-consignee-contact" value="Ilasi Florin">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-consignee-mobile">Mobile</label>
+                                <input type="text" id="pl-consignee-mobile" value="+40720047016">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-consignee-gst">GSTIN/VAT</label>
+                                <input type="text" id="pl-consignee-gst" value="RO 11360510 J35/17/1999">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-truck"></i> Deliver To</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pl-deliver-name">Company Name</label>
+                                <input type="text" id="pl-deliver-name" value="Sc Adigherin Srl Company">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pl-deliver-address">Address</label>
+                                <input type="text" id="pl-deliver-address" value="Romania, Timis, Giroc strada Muncitorilor nr. 83C, Postal cod 307220">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-deliver-contact">Contact Person</label>
+                                <input type="text" id="pl-deliver-contact" value="Ilasi Florin">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-deliver-mobile">Mobile</label>
+                                <input type="text" id="pl-deliver-mobile" value="+40720047016">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoice & Shipment Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-ship"></i> Invoice & Shipment Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pl-ref-no">Invoice / PL No.</label>
+                                <input type="text" id="pl-ref-no" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-date">Invoice Date</label>
+                                <input type="date" id="pl-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-iec">Exporter IEC Code</label>
+                                <input type="text" id="pl-iec" value="ELHPP5387P">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-ad-code">A.D CODE</label>
+                                <input type="text" id="pl-ad-code" value="051012A">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-lut-arn">LUT ARN NO</label>
+                                <input type="text" id="pl-lut-arn" value="AD190226012959Q">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-pre-carriage">Pre-Carriage by</label>
+                                <input type="text" id="pl-pre-carriage" value="BY ROAD">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-receipt-place">Place of receipt by pre-carrier</label>
+                                <input type="text" id="pl-receipt-place" value="KOLKATA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-origin-country">Country of Origin of goods</label>
+                                <input type="text" id="pl-origin-country" value="INDIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-dest-country">Country of Final Destination</label>
+                                <input type="text" id="pl-dest-country" value="ROMANIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-vessel">Vessel / Flight No.</label>
+                                <input type="text" id="pl-vessel" value="BY Sea">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-port-loading">Port of Loading</label>
+                                <input type="text" id="pl-port-loading" value="KOLKATA(INCCU1)">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-delivery-payment-terms">Terms of Delivery and Payment</label>
+                                <input type="text" id="pl-delivery-payment-terms" value="FOB, 50% Advance 50% Before Dispatch">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-port-discharge">Port of Discharge</label>
+                                <input type="text" id="pl-port-discharge" value="Constanta, ROMANIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-final-port">Final Port of Delivery</label>
+                                <input type="text" id="pl-final-port" value="CONSTANTA, ROMANIA">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-exporter-gstin">Exporter GSTIN</label>
+                                <input type="text" id="pl-exporter-gstin" value="19ELHPP5387P1ZW">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-boxes"></i> Packing Details</h4>
+                        <div class="items-table-wrapper">
+                            <table class="items-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15%">Marks & Nos</th>
+                                        <th style="width:15%">No. & Kind of Pkgs</th>
+                                        <th style="width:35%">Description of Goods</th>
+                                        <th style="width:10%">Qty (Pcs)</th>
+                                        <th style="width:10%">Net Wt (KG)</th>
+                                        <th style="width:10%">Gross Wt (KG)</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pl-items-body">
+                                    <tr>
+                                        <td><input type="text" class="item-marks" value="SPD"></td>
+                                        <td><input type="text" class="item-pkgs-desc" value="1-13 Black Color"></td>
+                                        <td><input type="text" class="item-desc" value="Gents Black Cow Nappa Leather Wallet"></td>
+                                        <td><input type="number" value="1300" min="0" class="item-qty" onchange="calculateTotals('pl')"></td>
+                                        <td><input type="number" value="218" min="0" step="0.01" class="item-net-wt" onchange="calculateTotals('pl')"></td>
+                                        <td><input type="number" value="232" min="0" step="0.01" class="item-gross-wt" onchange="calculateTotals('pl')"></td>
+                                        <td><button type="button" class="btn-remove" onclick="removeRow(this, 'pl')"><i class="fas fa-times"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn-add-row" onclick="addRow('pl')">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <div class="totals-section">
+                            <div class="totals-row">
+                                <span>Total Packages (Kind):</span>
+                                <input type="number" id="pl-total-pkgs-input" value="13" min="0" onchange="calculateTotals('pl')">
+                            </div>
+                            <div class="totals-row">
+                                <span>Total Quantity:</span>
+                                <span id="pl-total-pkgs">0</span>
+                            </div>
+                            <div class="totals-row">
+                                <span>Total Net Weight:</span>
+                                <span id="pl-total-net">0.00 KG</span>
+                            </div>
+                            <div class="totals-row grand-total">
+                                <span>Total Gross Weight:</span>
+                                <span id="pl-total-gross">0.00 KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carton Dimensions list -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-box"></i> Carton Dimensions List</h4>
+                        <div class="form-grid">
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pl-dimensions">Carton Dimensions (one per line)</label>
+                                <textarea id="pl-dimensions" rows="4">DIMENSION OF 1-40 CTNS IN INCH: (27.5 X 14.5 X 12.5)
+DIMENSION OF 1-40 CTNS IN INCH: (27.5 X 14.5 X 12.5)
+DIMENSION OF 1-40 CTNS IN INCH: (27.5 X 14.5 X 12.5)
+DIMENSION OF 1-40 CTNS IN INCH: (27.5 X 14.5 X 12.5)
+DIMENSION OF 1-40 CTNS IN INCH: (27.5 X 14.5 X 12.5)
+DIMENSION OF 1-40 CTNS IN INCH: (27.5 X 14.5 X 12.5)</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Declaration settings -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-sticky-note"></i> Declaration Settings</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pl-dec-exporter">Declaration Exporter Name</label>
+                                <input type="text" id="pl-dec-exporter" value="Spotdeal Enterprises">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-dec-rex">REX Number</label>
+                                <input type="text" id="pl-dec-rex" value="INREXELHPP5387PEC029">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-dec-date">Declaration Date</label>
+                                <input type="date" id="pl-dec-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-dec-origin">Origin Country</label>
+                                <input type="text" id="pl-dec-origin" value="INDIAN">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-dec-criterion">Origin Criterion</label>
+                                <input type="text" id="pl-dec-criterion" value="P (Products wholly obtain)">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-dec-hscode">HS Code</label>
+                                <input type="text" id="pl-dec-hscode" value="42023120">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="pl-remarks">Full Declaration Text Override (Optional)</label>
+                                <textarea id="pl-remarks" rows="2" placeholder="Leave empty to use the standard declaration text..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signatory Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-signature"></i> Signatory Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pl-sig-company">Company Name</label>
+                                <input type="text" id="pl-sig-company" value="Shivansh International">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-sig-name">Signatory Name</label>
+                                <input type="text" id="pl-sig-name" value="Priya Paul">
+                            </div>
+                            <div class="form-group">
+                                <label for="pl-sig-designation">Designation</label>
+                                <input type="text" id="pl-sig-designation" value="Proprietor">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm('packing')"><i class="fas fa-redo"></i> Reset</button>
+                        <button type="button" class="btn btn-primary" onclick="generateInvoice('packing')"><i class="fas fa-file-pdf"></i> Generate & Preview</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== LOCAL INVOICE PAGE ==================== -->
+        <section class="page" id="page-local">
+            <div class="invoice-form-container">
+                <div class="form-header-banner local-banner">
+                    <div class="form-header-icon"><i class="fas fa-receipt"></i></div>
+                    <div>
+                        <h3>Local Invoice</h3>
+                        <p>GST-compliant domestic tax invoice</p>
+                    </div>
+                </div>
+                <form id="localForm" class="invoice-form" onsubmit="return false;">
+                    <div class="form-section">
+                        <h4><i class="fas fa-building"></i> Seller Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="li-seller-name">Firm Name</label>
+                                <input type="text" id="li-seller-name" value="Shivansh International" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="li-seller-address">Address</label>
+                                <input type="text" id="li-seller-address" placeholder="Firm address">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-seller-gst">GSTIN</label>
+                                <input type="text" id="li-seller-gst" placeholder="e.g., 09AAACH7409R1Z7">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-seller-state">State (Code)</label>
+                                <input type="text" id="li-seller-state" placeholder="e.g., Uttar Pradesh (09)">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-seller-pan">PAN</label>
+                                <input type="text" id="li-seller-pan" placeholder="PAN number">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-seller-phone">Phone / Email</label>
+                                <input type="text" id="li-seller-phone" placeholder="Contact info">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-user-tie"></i> Buyer Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="li-buyer-name">Buyer Name</label>
+                                <input type="text" id="li-buyer-name" placeholder="Enter buyer name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="li-buyer-address">Address</label>
+                                <input type="text" id="li-buyer-address" placeholder="Buyer address">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-buyer-gst">Buyer GSTIN</label>
+                                <input type="text" id="li-buyer-gst" placeholder="Buyer GST number">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-buyer-state">State (Code)</label>
+                                <input type="text" id="li-buyer-state" placeholder="e.g., Maharashtra (27)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-info-circle"></i> Invoice Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="li-invoice-no">Invoice No.</label>
+                                <input type="text" id="li-invoice-no" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="li-date">Invoice Date</label>
+                                <input type="date" id="li-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-eway-bill">E-Way Bill No.</label>
+                                <input type="text" id="li-eway-bill" placeholder="E-Way Bill (if applicable)">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-transport">Transport Details</label>
+                                <input type="text" id="li-transport" placeholder="Vehicle No. / Transporter">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-place-supply">Place of Supply</label>
+                                <input type="text" id="li-place-supply" placeholder="State of supply">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-reverse-charge">Reverse Charge</label>
+                                <select id="li-reverse-charge">
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-list"></i> Item Details</h4>
+                        <div class="items-table-wrapper">
+                            <table class="items-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:5%">#</th>
+                                        <th style="width:25%">Description</th>
+                                        <th style="width:10%">HSN/SAC</th>
+                                        <th style="width:8%">Qty</th>
+                                        <th style="width:8%">Unit</th>
+                                        <th style="width:12%">Rate (₹)</th>
+                                        <th style="width:12%">Amount (₹)</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="li-items-body">
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input type="text" placeholder="Item description" class="item-desc"></td>
+                                        <td><input type="text" placeholder="HSN" class="item-hsn"></td>
+                                        <td><input type="number" value="1" min="0" class="item-qty" onchange="calculateRow(this, 'li')"></td>
+                                        <td>
+                                            <select class="item-unit">
+                                                <option value="PCS">PCS</option>
+                                                <option value="KGS">KGS</option>
+                                                <option value="MTR">MTR</option>
+                                                <option value="SET">SET</option>
+                                                <option value="NOS">NOS</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" value="0" min="0" step="0.01" class="item-price" onchange="calculateRow(this, 'li')"></td>
+                                        <td><input type="text" value="0.00" class="item-amount" readonly></td>
+                                        <td><button type="button" class="btn-remove" onclick="removeRow(this, 'li')"><i class="fas fa-times"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn-add-row" onclick="addRow('li')">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <div class="totals-section">
+                            <div class="totals-row"><span>Taxable Value:</span><span id="li-subtotal">0.00</span></div>
+                            <div class="totals-row"><span>CGST (%):</span><input type="number" id="li-cgst" value="9" min="0" max="50" step="0.5" onchange="calculateTotals('li')"></div>
+                            <div class="totals-row"><span>SGST (%):</span><input type="number" id="li-sgst" value="9" min="0" max="50" step="0.5" onchange="calculateTotals('li')"></div>
+                            <div class="totals-row"><span>IGST (%):</span><input type="number" id="li-igst" value="0" min="0" max="50" step="0.5" onchange="calculateTotals('li')"></div>
+                            <div class="totals-row grand-total"><span>Total Amount:</span><span id="li-grand-total">0.00</span></div>
+                            <div class="totals-row"><span>Amount in Words:</span><span id="li-amount-words" class="amount-words">Zero Only</span></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-university"></i> Bank Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="li-bank-name">Bank Name</label>
+                                <input type="text" id="li-bank-name" placeholder="e.g., State Bank of India">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-account-no">Account No.</label>
+                                <input type="text" id="li-account-no" placeholder="Account number">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-ifsc">IFSC Code</label>
+                                <input type="text" id="li-ifsc" placeholder="e.g., SBIN0001234">
+                            </div>
+                            <div class="form-group">
+                                <label for="li-branch">Branch</label>
+                                <input type="text" id="li-branch" placeholder="Branch name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-sticky-note"></i> Terms & Conditions</h4>
+                        <textarea id="li-remarks" rows="3" placeholder="Payment is due within 30 days. Interest @18% p.a. will be charged on delayed payments."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm('local')"><i class="fas fa-redo"></i> Reset</button>
+                        <button type="button" class="btn btn-primary" onclick="generateInvoice('local')"><i class="fas fa-file-pdf"></i> Generate & Preview</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== PRINT / PREVIEW MODAL ==================== -->
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Invoice Preview</h3>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="printInvoice()"><i class="fas fa-print"></i> Print</button>
+                    <button class="btn btn-secondary" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div id="printContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
