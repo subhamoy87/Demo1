@@ -1282,7 +1282,7 @@ body {
 }
 
 /* ─── Mobile adjustments: hide topbar, stack action buttons ─── */
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     /* show mobile header */
     .mobile-header { display: flex; }
 
@@ -1294,6 +1294,9 @@ body {
 
     /* Stack form action buttons and make them full width */
     .form-actions {
+        display: flex;
+        position: static;
+        bottom: auto;
         flex-direction: column;
         gap: 0.6rem;
         align-items: stretch;
